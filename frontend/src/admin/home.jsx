@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 
 const Home = () => {
     const [user,setUsers]= useState([])
-    const [database,setBukutamu]= useState([])
+    const [database]= useState([])
     const [authenticated, setAuthenticated]= useState(false)
     const getToken = () => {
         return localStorage.getItem('token')
@@ -23,16 +23,11 @@ const Home = () => {
                 headers: {
                     'Authorization' : `Bearer ${token}`,
                 }
-            }).then(response => response.json()),
-            fetch('http://localhost:3000/api/bukutamu', {
-                headers: {
-                    'Authorization' : `Bearer ${token}`,
-                }
-            }).then (response => response.json())
+            })
+            .then (response => response.json())
         ])
-        .then(([usersData, bukutamuData]) => {
+        .then(([usersData]) => {
             setUsers(usersData)
-            setBukutamu(bukutamuData)
         })
         .catch(error => {
             console.error('Error fetching data', error)
